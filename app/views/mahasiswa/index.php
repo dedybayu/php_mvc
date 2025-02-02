@@ -8,7 +8,7 @@
                 </div>
             </div>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formModal">
+            <button type="button" class="btn btn-primary tombolTambahData" data-bs-toggle="modal" data-bs-target="#formModal">
                 Tambah Mahasiswa
             </button><br><br>
 
@@ -42,7 +42,9 @@
             <?= htmlspecialchars($mhs['nama']); ?>
             <span>
                 <a href="<?= BASEURL ?>/mahasiswa/detail/<?= $mhs['id']; ?>" 
-                   class="badge text-bg-primary text-decoration-none">Detail</a>
+                   class="badge text-bg-primary text-decoration-none ms-2">Detail</a>
+                <a href="<?= BASEURL ?>/mahasiswa/update/<?= $mhs['id']; ?>" 
+                   class="badge text-bg-success text-decoration-none ms-2 tampilModalUbah" data-bs-toggle="modal" data-bs-target="#formModal" data-id="<?= $mhs['id']; ?>">Edit</a>
                 <a href="javascript:void(0);" 
                    class="badge text-bg-danger text-decoration-none ms-2 hapus-btn" 
                    data-id="<?= $mhs['id']; ?>">
@@ -66,11 +68,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="modalTitle">Tambah Data Mahasiswa</h1>
+                <h1 class="modal-title fs-5" id="formModalTitle">Tambah Data Mahasiswa</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="<?= BASEURL ?>/mahasiswa/tambah" method="post">
+                    <input type="hidden" name="id" id="id">
                     <div class="mb-3">
                         <label for="nama" class="form-label">Nama</label>
                         <input type="text" class="form-control" id="nama" name="nama" placeholder="Input Nama">
