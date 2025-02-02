@@ -2,17 +2,17 @@
     <div class="row">
         <div class="col-8">
 
-        <div class="row"> 
-            <div class="col-lg-6">
-                <?php Flasher::flash()?>
+            <div class="row">
+                <div class="col-lg-6">
+                    <?php Flasher::flash() ?>
+                </div>
             </div>
-        </div>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formModal">
                 Tambah Mahasiswa
             </button><br><br>
 
-            <h3>Daftar Mahasiswa</h3>
+            <!-- <h3>Daftar Mahasiswa</h3>
             <table class="table table-bordered">
                 <thead class="table-dark">
                     <tr>
@@ -35,14 +35,23 @@
             </table>
 
             <br>
-            <h3>LIST 1</h3>
+            <h3>LIST 1</h3> -->
             <ul class="list-group">
-                <?php foreach ($data['mhs'] as $mhs): ?>
-                    <li class="list-group-item d-flex justify-content-between align-items-center"><?= $mhs['nama']; ?> <a
-                            href="<?= BASEURL ?>/mahasiswa/detail/<?= $mhs['id']; ?>"
-                            class="badge text-bg-primary">detail</a></li>
-                <?php endforeach; ?>
-            </ul>
+    <?php foreach ($data['mhs'] as $mhs): ?>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <?= htmlspecialchars($mhs['nama']); ?>
+            <span>
+                <a href="<?= BASEURL ?>/mahasiswa/detail/<?= $mhs['id']; ?>" 
+                   class="badge text-bg-primary text-decoration-none">Detail</a>
+                <a href="javascript:void(0);" 
+                   class="badge text-bg-danger text-decoration-none ms-2 hapus-btn" 
+                   data-id="<?= $mhs['id']; ?>">
+                   Hapus
+                </a>
+            </span>
+        </li>
+    <?php endforeach; ?>
+</ul>
         </div>
     </div>
 </div>
@@ -93,3 +102,29 @@
         </div>
     </div>
 </div>
+
+
+
+<!-- SweetAlert CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.querySelectorAll('.hapus-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            let id = this.getAttribute('data-id');
+            Swal.fire({
+                title: "Apakah Anda yakin?",
+                text: "Data yang dihapus tidak bisa dikembalikan!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Ya, hapus!",
+                cancelButtonText: "Batal"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "<?= BASEURL ?>/mahasiswa/hapus/" + id;
+                }
+            });
+        });
+    });
+</script>
